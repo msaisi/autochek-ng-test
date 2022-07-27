@@ -1,0 +1,9 @@
+::ng-deep .row-top-selling {
+  .image-container {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+}

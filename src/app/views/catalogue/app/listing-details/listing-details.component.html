@@ -1,0 +1,251 @@
+<!-- banner-2 -->
+<div class="page-head_agile_info_w3l" [style.background-image]="'url('+_vehicle.imageUrl+')'"
+  [style.background-position-x]="'center'">
+
+</div>
+<!-- //banner-2 -->
+<!-- page -->
+<div class="services-breadcrumb">
+  <div class="agile_inner_breadcrumb">
+    <div class="container">
+      <ul class="w3_short">
+        <li>
+          <a routerLink="/">Home</a>
+          <i>|</i>
+        <li>
+          <a routerLink="/listing">Car Listing</a>
+          <i>|</i>
+        </li>
+        <li>Vehicle Details :: {{ _vehicle.carName }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- //page -->
+<!-- Single Page -->
+<div class="banner-bootom-w3-agileits py-5 listing-single-wrapper">
+  <div class="container py-xl-4 py-lg-2">
+    <!-- tittle heading -->
+    <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
+      <span>V</span>ehicle
+      <span>D</span>etails
+    </h3>
+    <!-- //tittle heading -->
+    <div class="row">
+      <div class="col-lg-5 col-md-8 single-right-left media-section">
+        <div class="grid images_3_of_2">
+
+          <div class="flexslider">
+            <ul class="slides">
+
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-lg-7 single-right-left simpleCart_shelfItem listing-single-details">
+        <h3 class="mb-3">{{ _vehicle.carName }}</h3>
+        <p class="">
+          <span class="item_price">Kes {{ _vehicle.marketplacePrice | number:'0.2-2'}} </span>
+          <!--<del class="mx-2 font-weight-light">$250.00</del> -->
+          <label> {{ !_vehicle.sold? 'Available' : 'Sold' }}</label>
+        </p>
+
+        <div class="mt-2 mb-2" *ngIf="_vehicle.hasFinancing=== true">
+          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#carFinancedDetails"
+            aria-expanded="false" aria-controls="carFinancedDetails">
+            View Financed Plan
+          </button>
+        </div>
+        <div class="collapse" id="carFinancedDetails">
+          <div class="card card-body">
+            <ul class="list-group">
+              <li class="list-group-item">
+                <b>Loan Value:</b> Kes {{ _vehicle.loanValue | number:'0.2-2'}}
+              </li>
+              <li class="list-group-item">
+                <b>Installment:</b> Kes {{ _vehicle.installment | number:'0.2-2'}}
+              </li>
+            </ul>
+
+            <h4 class="mt-3 mb-3">Loan Calculator</h4>
+
+            <table>
+              <thead>
+                <tr>
+                  <td>Range</td>
+                  <td>Percentage</td>
+                  <td>Value</td>
+                </tr>
+              </thead>
+
+              <!--<tbody>
+                <tr>
+                  <td>
+                    <input type="range" class="form-range mb-3" [min]="loan_calculator_settings.downpayment.min"
+                      [max]="loan_calculator_settings.downpayment.max"
+                      [step]="loan_calculator_settings.downpayment.step"
+                      [value]="loan_calculator_settings.downpayment.set" (change)="rangeChange($event, 'downpayment')">
+                  </td>
+                  <td>{{ loan_calculator_settings.downpayment.set }}</td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <input type="range" class="form-range mb-3" [min]="loan_calculator_settings.interest.min"
+                      [max]="loan_calculator_settings.interest.max" [step]="loan_calculator_settings.interest.step"
+                      [value]="loan_calculator_settings.interest.set" (change)="rangeChange($event, 'interest_rate')">
+                  </td>
+                  <td>{{
+                    loan_calculator_settings.interest.set}}</td>
+                </tr>
+              </tbody>-->
+
+
+
+
+              <tbody>
+                <tr>
+                  <td>
+                    <!--[step]="loan_calculator_settings.downpayment.step"-->
+                    <input type="number" class="mb-3" [min]="loan_calculator_settings.downpayment.min"
+                      [max]="loan_calculator_settings.downpayment.max"
+                      [value]="loan_calculator_settings.downpayment.set" (change)="rangeChange($event, 'downpayment')">
+                  </td>
+                  <td>{{ loan_calculator_settings.downpayment.set }}</td>
+                  <td>{{ loan_calculator_settings.downpayment.set }}</td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <!-- [step]="loan_calculator_settings.interest.step"-->
+                    <input type="number" class="mb-3" [min]="loan_calculator_settings.interest.min"
+                      [max]="loan_calculator_settings.interest.max" [value]="loan_calculator_settings.interest.set"
+                      (change)="rangeChange($event, 'interest_rate')">
+                  </td>
+                  <td>{{ loan_calculator_settings.interest.set }}</td>
+                  <td>{{ loan_calculator_settings.interest.set }}</td>
+                </tr>
+              </tbody>
+
+            </table>
+
+
+
+
+          </div>
+        </div>
+
+
+        <div class="single-infoagile mb-5 mt-3">
+          <ul>
+            <li class="mb-3">
+              <b>Post Date:</b> {{ _vehicle.marketplaceVisibleDate | date }}
+            </li>
+            <li class="mb-3">
+              <b>Location:</b> {{ _vehicle.city }}, {{ _vehicle.state }}, {{ _vehicle.country }}
+            </li>
+            <li class="mb-3">
+              <b>Insured:</b> {{ _vehicle.insured? 'Yes' : 'No' }}
+            </li>
+            <li class="mb-3">
+              <b>Has Warranty:</b> {{ _vehicle.hasWarranty? 'Yes' : 'No' }}
+            </li>
+
+            <li class="mb-3">
+              <b>Owner Type:</b> {{ (_vehicle.ownerType | titlecase) || 'n/a' }}
+            </li>
+            <li class="mb-3">
+              <b>Selling Condition:</b> {{ (_vehicle.sellingCondition | titlecase) || 'n/a' }}
+            </li>
+
+          </ul>
+        </div>
+
+
+        <h5>TECHNICAL SPECIFICATIONS</h5>
+        <div class="product-single-w3l tech-specs">
+
+          <ul class="row mt-3">
+            <li class="col-md-4 mb-3">
+              <h2>Body Type</h2>{{ _vehicle.bodyType?.name}}
+            </li>
+            <li class="col-md-4 mb-3">
+              <h2>Make</h2>{{ _vehicle.model?.make?.name }}
+            </li>
+            <li class="col-md-4 mb-3">
+              <h2>Model</h2>{{ _vehicle.model?.name }}
+            </li>
+            <li class="col-md-4 mb-3">
+              <h2>Fuel Type</h2>{{ _vehicle.fuelType | titlecase}}
+            </li>
+            <li class="col-md-4 mb-3">
+              <h2>Transmission</h2>{{ _vehicle.transmission | titlecase}}
+            </li>
+            <li class="col-md-4 mb-3">
+              <h2>Mileage</h2>{{ _vehicle.mileage | number:'0.0-2'}} {{ _vehicle.mileageUnit | uppercase }}
+            </li>
+            <li class="col-md-4 mb-3">
+              <h2>Engine Type</h2>{{ _vehicle.engineType || 'n/a' }}
+            </li>
+            <li class="col-md-4 mb-3">
+              <h2>Exterior Color</h2>{{ _vehicle.exteriorColor }}
+            </li>
+            <li class="col-md-4 mb-3">
+              <h2>Interior Color</h2>{{ _vehicle.interiorColor }}
+            </li>
+            <li class="col-md-4 mb-3">
+              <h2>Registered</h2>{{ _vehicle.year }}
+            </li>
+            <li class="col-md-4 mb-3">
+              <h2>Wheel Type</h2>{{ _vehicle.model?.wheelType || 'n/a'}}
+            </li>
+            <li class="col-md-4 mb-3">
+              <h2>Vin</h2>{{ _vehicle.vin}}
+            </li>
+          </ul>
+
+        </div>
+
+        <!-- begin car features-->
+        <h5 *ngIf="_vehicle.carFeatures?.length">CAR FEATURES</h5>
+        <div class="product-single-w3l tech-specs" *ngIf="_vehicle.carFeatures?.length">
+          <ul class="mt-3">
+            <li class="mb-3" *ngFor="let row of _vehicle.carFeatures">
+              <i class="fas fa-check-circle"></i>{{ row }}
+            </li>
+          </ul>
+        </div>
+        <!-- end car features-->
+
+        <div class="occasion-cart mt-4">
+          <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+
+            <button class="btn btn-primary" type="button" (click)="vehicleInquire()">
+              Send Message
+            </button>
+            <!--<form action="#" method="post">
+              <fieldset>
+                <input type="hidden" name="cmd" value="_cart" />
+                <input type="hidden" name="add" value="1" />
+                <input type="hidden" name="business" value=" " />
+                <input type="hidden" name="item_name" value="{{ _vehicle.carName }}" />
+                <input type="hidden" name="amount" value="{{ _vehicle.marketplacePrice }}" />
+                <input type="hidden" name="discount_amount" value="0" />
+                <input type="hidden" name="currency_code" value="{{ _vehicle.country }}" />
+                <input type="hidden" name="return" value=" " />
+                <input type="hidden" name="cancel_return" value=" " />
+                <input type="submit" name="submit" value="Add to cart" class="button" />
+              </fieldset>
+            </form>-->
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- //Single Page -->

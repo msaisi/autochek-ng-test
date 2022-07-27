@@ -1,0 +1,29 @@
+::ng-deep .listing-single-details {
+  .product-single-w3l.tech-specs {
+    ul {
+      list-style: none;
+      padding: 0px;
+
+      li {
+        list-style: none;
+
+        h2 {
+          font-size: 20px;
+        }
+
+      }
+    }
+
+  }
+}
+
+::ng-deep .media-section {
+  .flex-control-thumbs li {
+    height: 100px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+}

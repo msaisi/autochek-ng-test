@@ -1,0 +1,155 @@
+<!-- banner -->
+<div id="homeSlider" class="carousel slide" data-ride="carousel">
+  <!-- Indicators-->
+  <ol class="carousel-indicators">
+    <li data-target="#homeSlider" [attr.data-slide-to]="i" class="active"
+      *ngFor="let row of records_slider | async; let i= index"></li>
+    <!--<li data-target="#homeSlider" data-slide-to="1"></li>
+    <li data-target="#homeSlider" data-slide-to="2"></li>
+    <li data-target="#homeSlider" data-slide-to="3"></li>-->
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item item{{ i }} {{ i=== 0? 'active':'' }}"
+      *ngFor="let row of records_slider | async; let i= index" [style.background-image]="'url('+row.imageUrl+')'">
+
+      <div class="container">
+        <div class="w3l-space-banner">
+          <div class="carousel-caption p-lg-5 p-sm-4 p-3">
+            <p>Let us help you get your
+              <span>next</span> car!
+            </p>
+            <h3 class="font-weight-bold pt-2 pb-lg-5 pb-4">{{row.title}}
+            </h3>
+            <a class="button2" routerLink="/listing/{{row.id}}">View Details </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <a class="carousel-control-prev" href="#homeSlider" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#homeSlider" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<!-- //banner -->
+
+<!-- top Products -->
+<div class="ads-grid py-sm-5 py-4">
+  <div class="container py-xl-4 py-lg-2">
+    <!-- tittle heading -->
+    <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
+      <span>P</span>opular
+      <span>M</span>akes
+    </h3>
+    <!-- //tittle heading -->
+    <div class="row">
+      <!-- product left -->
+      <div class="agileinfo-ads-display col-lg-9 popular-brands">
+        <div class="wrapper" *ngIf="records_popular">
+          <!-- first section -->
+          <div class="product-sec1 px-sm-4 px-3 py-sm-5  py-3 mb-4" *ngFor="let section_row of records_popular">
+            <!--<h3 class="heading-tittle text-center font-italic">Popular Makes</h3>-->
+            <div class="row">
+
+              <div class="col-md-4 product-men mt-5" *ngFor="let row of section_row| async">
+                <div class="men-pro-item simpleCart_shelfItem">
+                  <div class="men-thumb-item thumb-maker text-center">
+                    <img src="{{ row.imageUrl }}" alt="">
+                    <!--<div class="men-cart-pro">
+                      <div class="inner-men-cart-pro">
+                        <a routerLink="listing/{{row.id}}" class="link-product-add-cart">Quick View</a>
+                      </div>
+                    </div>-->
+                  </div>
+                  <div class="item-info-product info-maker text-center border-top mt-4">
+                    <h4 class="pt-1">
+                      {{ row.name }}
+                    </h4>
+                    <!--<div class="info-product-price my-2">
+                      <span class="item_price">$200.00</span>
+                      <del>$280.00</del>
+                    </div>
+                    <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+                      <form action="#" method="post">
+                        <fieldset>
+                          <input type="hidden" name="cmd" value="_cart" />
+                          <input type="hidden" name="add" value="1" />
+                          <input type="hidden" name="business" value=" " />
+                          <input type="hidden" name="item_name" value="{{ row.name }}" />
+                          <input type="hidden" name="amount" value="200.00" />
+                          <input type="hidden" name="discount_amount" value="1.00" />
+                          <input type="hidden" name="currency_code" value="USD" />
+                          <input type="hidden" name="return" value=" " />
+                          <input type="hidden" name="cancel_return" value=" " />
+                          <input type="submit" name="submit" value="Add to cart" class="button btn" />
+                        </fieldset>
+                      </form>
+                    </div>-->
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <!-- //first section -->
+
+        </div>
+      </div>
+      <!-- //product left -->
+
+      <!-- product right -->
+      <div class="col-lg-3 mt-lg-0 mt-4 p-lg-0">
+        <div class="side-bar p-sm-4 p-3">
+
+          <app-sidebar></app-sidebar>
+
+        </div>
+        <!-- //product right -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- //top products -->
+
+<!-- middle section -->
+<div class="join-w3l1 py-sm-5 py-4" [style.background-image]="'url('+_showcase_section_section.background+')'"
+  *ngIf="_showcase_section_section.background">
+  <div class="container py-xl-4 py-lg-2">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="join-agile text-left p-4">
+          <div class="row">
+            <div class="col-sm-7 offer-name">
+              <h6>Vivamus commodo nisi sed</h6>
+              <h4 class="mt-2 mb-3">Aliquam pellentesque</h4>
+              <p>Get up to 15% off </p>
+            </div>
+            <div class="col-sm-5 offerimg-w3l" *ngIf="_showcase_section_section.item_1">
+              <img [src]="_showcase_section_section.item_1" alt="" class="img-fluid">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 mt-lg-0 mt-5">
+        <div class="join-agile text-left p-4">
+          <div class="row ">
+            <div class="col-sm-7 offer-name">
+              <h6>Sed aliquam sapien quis lectus</h6>
+              <h4 class="mt-2 mb-3">Aliquam in arcu</h4>
+              <p>Get up to 5% off </p>
+            </div>
+            <div class="col-sm-5 offerimg-w3l" *ngIf="_showcase_section_section.item_2">
+              <img [src]="_showcase_section_section.item_2" alt="" class="img-fluid">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- middle section -->

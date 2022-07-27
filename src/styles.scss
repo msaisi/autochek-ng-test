@@ -1,0 +1,93 @@
+/* You can add global styles to this file, and also import other style files */
+.product-men {
+  .men-thumb-item {
+    height: 150px;
+    overflow: hidden;
+
+    img {
+      width: 200px;
+      height: auto;
+    }
+  }
+
+  .men-thumb-item.thumb-maker {
+    height: 150px;
+    overflow: hidden;
+    cursor: auto;
+
+    img {
+      width: 150px;
+      height: auto;
+    }
+  }
+
+
+
+  .men-thumb-item:hover .inner-men-cart-pro .link-product-add-cart {
+    top: 75%;
+  }
+
+  .item-info-product.info-maker {
+    h4 {
+      font-size: 18px;
+    }
+  }
+
+  .info-product-attributes {
+    font-size: 12px;
+
+    ul {
+      list-style: none;
+
+      li {
+        display: inline-block;
+        padding: 0px 5px 0px 5px;
+        border-right: 1px solid black;
+      }
+
+      li:last-child {
+        border-right: none;
+      }
+    }
+  }
+}
+
+.pagination-control-group {
+  display: none;
+}
+
+.page-navigation-wrapper {
+
+  .nav-section {
+    border-right: 1px solid black;
+    display: inline-block;
+    padding: 0px 10px;
+
+  }
+
+  .nav-section:first-child {
+    font-size: 14px;
+  }
+
+  .nav-section:last-child {
+    border-right: none;
+  }
+
+}
+
+@media (max-width:767px) {
+  .page-navigation-wrapper {
+
+    text-align: center;
+
+    .nav-section {
+      display: block;
+      padding: 10px 0px;
+
+    }
+
+    .nav-section:first-child {
+      border-right: none;
+    }
+  }
+}

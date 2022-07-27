@@ -1,0 +1,71 @@
+<div class="search-hotel border-bottom py-2">
+  <h3 class="agileits-sear-head mb-3">Search Vehicle</h3>
+  <form action="#" method="post">
+    <input type="search" placeholder="Vehicle name..." name="search" required="">
+    <input type="submit" value=" ">
+  </form>
+
+
+</div>
+<!-- price -->
+<div class="range border-bottom py-2">
+  <h3 class="agileits-sear-head mb-3">Brands</h3>
+  <div class="left-side py-2">
+    <ul>
+      <li *ngFor="let item of search_brands | async">
+        <input type="checkbox" class="checked">
+        <span class="span">{{item.name}}</span>
+      </li>
+    </ul>
+  </div>
+</div>
+<!-- //price -->
+<!-- price -->
+<div class="range border-bottom py-2">
+  <h3 class="agileits-sear-head mb-3">Price</h3>
+  <div class="w3l-range">
+    <ul>
+      <li>
+        <a href="#">Under {{_currency}}1,000,000</a>
+      </li>
+      <li class="my-1">
+        <a href="#">{{_currency}}1,000,000 - {{_currency}}3,000,000</a>
+      </li>
+      <li>
+        <a href="#">{{_currency}}3,000,000 - {{_currency}}5,000,000</a>
+      </li>
+      <li class="my-1">
+        <a href="#">{{_currency}}5,000,000 - {{_currency}}7,000,000</a>
+      </li>
+      <li>
+        <a href="#">{{_currency}}7,000,000 {{_currency}}9,000,000</a>
+      </li>
+      <li class="mt-1">
+        <a href="#">Over {{_currency}}9,000,000</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<!-- //price -->
+
+<!-- best seller -->
+<div class="f-grid py-2">
+  <h3 class="agileits-sear-head mb-3 best-selling">Best Seller</h3>
+  <div class="box-scroll">
+    <div class="scroll">
+
+      <div class="row row-top-selling my-4" *ngFor="let row of top_selling | async">
+        <div class="col-lg-3 col-sm-2 col-3 left-mar image-container">
+          <img [src]="row.imageUrl" alt="" class="img-fluid">
+        </div>
+        <div class="col-lg-9 col-sm-10 col-9 w3_mvd">
+          <a routerLink="/listing/{{row.id}}">{{ row.title }}</a>
+          <a href="" class="price-mar mt-2">Kes {{ row.marketplacePrice | number:'0.2-2'}}</a>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+<!-- //best seller -->

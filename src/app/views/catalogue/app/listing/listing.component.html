@@ -1,0 +1,141 @@
+<!-- banner-2 -->
+<div class="page-head_agile_info_w3l" [style.background-image]="'url('+_listing_bg_image+')'"
+  [style.background-position-x]="'center'">
+
+</div>
+<!-- //banner-2 -->
+<!-- page -->
+<div class="services-breadcrumb">
+  <div class="agile_inner_breadcrumb">
+    <div class="container">
+      <ul class="w3_short">
+        <li>
+          <a routerLink="/">Home</a>
+          <i>|</i>
+        </li>
+        <li>Car Listing</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- //page -->
+
+
+<!-- top Products -->
+<div class="ads-grid py-sm-5 py-4">
+  <div class="container py-xl-4 py-lg-2">
+    <!-- tittle heading -->
+    <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
+      <span>V</span>ehicle
+      <span>&</span>
+      <span>C</span>atalogue
+    </h3>
+    <!-- //tittle heading -->
+    <div class="row">
+      <!-- product left -->
+      <div class="agileinfo-ads-display col-lg-9">
+        <div class="wrapper" *ngIf="records_listing">
+
+          <!-- //init pagination control-->
+          <ul class="pagination-control-group">
+            <li
+              *ngFor=" let page_row of data_array | paginate : { itemsPerPage: pagination.per_page, currentPage: pagination.current_page, totalItems: pagination.total_count }; let i=index ">
+            </li>
+          </ul>
+          <!-- //init pagination control-->
+
+          <!-- //pagination section -->
+          <ng-container *ngTemplateOutlet="paginationTemplate"></ng-container>
+          <!-- //pagination section -->
+
+          <!-- first section -->
+          <div class="product-sec1 px-sm-4 px-3 py-sm-5  py-3 mb-4 car-list-section"
+            *ngFor="let section_row of records_listing">
+            <div class="row">
+              <div class="col-md-4 product-men" *ngFor="let row of section_row| async">
+                <div class="men-pro-item simpleCart_shelfItem">
+                  <div class="men-thumb-item text-center">
+                    <img src="{{ row.imageUrl}}" alt="{{ row.title }}">
+                    <div class="men-cart-pro">
+                      <div class="inner-men-cart-pro">
+                        <a routerLink="/listing/{{row.id}}" class="link-product-add-cart">View Details</a>
+                      </div>
+                    </div>
+                    <span class="product-new-top">{{ !row.sold? 'Available' : 'Sold' }}</span>
+                  </div>
+                  <div class="item-info-product text-center border-top mt-4">
+                    <h4 class="pt-1">
+                      <a routerLink="/listing/{{row.id}}">{{ row.title }} - {{ row.year }}</a>
+                    </h4>
+                    <div class="info-product-price my-2">
+                      <span class="item_price">Kes {{ row.marketplacePrice | number:'0.2-2'}}</span>
+                      <!--<del>$280.00</del>-->
+                    </div>
+                    <div class="info-product-attributes my-2">
+
+                      <div class="">
+                        Post Date: {{ row.marketplaceVisibleDate | date }}
+                      </div>
+
+                      <ul>
+                        <li>{{ row.fuelType | titlecase}}</li>
+                        <li>{{ row.transmission | titlecase}}</li>
+                        <li>{{ row.mileage | number:'0.0-2'}} {{ row.mileageUnit | uppercase }}</li>
+                      </ul>
+
+                      <div class="">
+                        Location: {{ row.city }}, {{ row.state }}
+                      </div>
+
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- //first section -->
+
+          <!-- //pagination section -->
+          <ng-container *ngTemplateOutlet="paginationTemplate"></ng-container>
+          <!-- //pagination section -->
+
+        </div>
+      </div>
+      <!-- //product left -->
+
+
+      <!-- product right -->
+      <div class="col-lg-3 mt-lg-0 mt-4 p-lg-0">
+        <div class="side-bar p-sm-4 p-3">
+
+          <app-sidebar></app-sidebar>
+
+        </div>
+        <!-- //product right -->
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- //top products -->
+
+<ng-template #paginationTemplate>
+  <div class="page-navigation-wrapper">
+    <div class="nav-section">
+      Showing {{ (((pagination.current_page - 1) * pagination.per_page) +1) | number:'0.0-2' }} to {{
+      ( (pagination.current_page * pagination.per_page)> pagination.total_count? pagination.total_count :
+      pagination.current_page * pagination.per_page) |
+      number:'0.0-2'}} of {{
+      pagination.total_count | number:'0.0-2'}}
+    </div>
+    <div class="nav-section">
+      <!-- //pagination section -->
+      <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="handlePageChange($event)"
+        [responsive]="true">
+      </pagination-controls>
+      <!-- //pagination section -->
+    </div>
+  </div>
+</ng-template>
