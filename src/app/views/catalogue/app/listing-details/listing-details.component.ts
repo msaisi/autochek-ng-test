@@ -67,7 +67,6 @@ export class ListingDetailsComponent implements OnInit, AfterViewInit {
   //loanPercentage
 
   /*
-
     downPayment: 0.20000000298023224
     interestRate: 0.23999999463558197
     tenure: 48
@@ -168,7 +167,6 @@ export class ListingDetailsComponent implements OnInit, AfterViewInit {
         break;
     }
 
-
   }
 
   resourceURL(value: any) {
@@ -199,9 +197,6 @@ export class ListingDetailsComponent implements OnInit, AfterViewInit {
       //add media images based on image type
       media.carMediaList.forEach((el: any, index: number) => {
         //set default container
-
-        //let media_type = el.type.includes("image") ? 'image' : 'video';
-
         let media_type = "image";
         if (el.type.includes("video")) {
           media_type = "video";
@@ -232,12 +227,9 @@ export class ListingDetailsComponent implements OnInit, AfterViewInit {
         }
       );*/
 
-
       this._carMedia = media_items;
       this.load_slider_settings();
     });
-
-
   }
 
 

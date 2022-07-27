@@ -125,4 +125,4 @@ URL {app_url}/
 URL {app_url}/listing
 
 3. Listing Page Details 
-URL {app_url}/{carId}
+URL {app_url}/listing/{carId}
