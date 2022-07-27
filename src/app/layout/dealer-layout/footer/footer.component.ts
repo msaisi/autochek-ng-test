@@ -31,7 +31,7 @@ export class FooterComponent implements OnInit {
 
     //initialize pagination per page
     this.pagination.per_page = 20;
-    this.getListings({ page: 1 }, { popular: true });
+    this.getListings({ page: 1 }, { });
   }
 
   /**
