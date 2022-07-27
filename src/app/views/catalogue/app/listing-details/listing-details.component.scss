@@ -27,3 +27,16 @@
     text-align: center;
   }
 }
+
+
+::ng-deep .paymentCalc {
+  .form-group label {
+    font-size: 16px;
+
+    small {
+      font-size: 14px;
+
+    }
+  }
+
+}

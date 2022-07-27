@@ -17,7 +17,6 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,
     LayoutModule,
     NgxPaginationModule
   ],

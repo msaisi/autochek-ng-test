@@ -70,13 +70,16 @@
               </li>
             </ul>
 
-            <h4 class="mt-5 mb-3">Calculate Your Auto Loan Payment</h4>
+            <div class="mt-5">
+              Thinking of something else?
+            </div>
+            <h4 class="mt-2 mb-3">Calculate Your Auto Loan Payment</h4>
 
             <div class="row paymentCalc">
 
               <div class="col-md-12">
 
-                <form id="loanCalc" action="" method="get" class="row">
+                <form action="" class="row">
                   <div class="col-md-12">
                     <div class="form-group">
                       <label for="vehiclePrice">Vehicle Price</label>
@@ -88,7 +91,10 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="downPayment">Down Payment</label>
+                      <label for="downPayment">Down Payment <small
+                          class="text-danger">({{loan_calculator_settings.downpayment.min |
+                          number:'0.2-2'}} to {{loan_calculator_settings.downpayment.max |
+                          number:'0.2-2'}})</small></label>
                       <input type="number"
                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                         class="form-control" id="downPayment" name="downPayment" placeholder="Down Payment" value="0"
@@ -108,7 +114,10 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="intRate">Interest Rate</label>
+                      <label for="intRate">Interest Rate <small
+                          class="text-danger">({{loan_calculator_settings.interest.min |
+                          number:'0.2-2'}} to {{loan_calculator_settings.interest.max |
+                          number:'0.2-2'}})</small></label>
                       <input type="number"
                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                         class="form-control" id="intRate" name="intRate" placeholder="Interest Rate" value=""
@@ -122,7 +131,7 @@
                       <input type="number"
                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                         class="form-control" id="loanTerm" name="loanTerm" placeholder="Loan Term (ex: 36 Months)"
-                        [(ngModel)]="loan_calculator_vals.user_check.term">
+                        max="{{loan_calculator_settings.term}}" [(ngModel)]="loan_calculator_vals.user_check.term">
                     </div>
                   </div>
                   <div class="clearfix"></div>
