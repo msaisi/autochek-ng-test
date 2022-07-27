@@ -66,7 +66,7 @@ export class ListingDetailsComponent implements OnInit, AfterViewInit {
     this.loanCalculatorForm = this.fb.group({
       loanTerm: ['', [Validators.required, Validators.min(0), Validators.max(0)]],
       intRate: ['', [Validators.required, Validators.min(0), Validators.max(0)]],
-      tradeValue: ['',],
+      tradeValue: ['', [Validators.min(0), Validators.required]],
       downPayment: ['', [Validators.required, Validators.min(0), Validators.max(0)]],
       vehiclePrice: ['', Validators.required]
     });
@@ -123,23 +123,25 @@ export class ListingDetailsComponent implements OnInit, AfterViewInit {
           vehiclePrice: this._vehicle.loanValue
         }
 
-
+        //clear validations on form controls
         this.loanCalculatorForm.get('downPayment')?.clearValidators();
         this.loanCalculatorForm.get('intRate')?.clearValidators();
         this.loanCalculatorForm.get('loanTerm')?.clearValidators();
 
-
+        //set validations on form controls
         this.loanCalculatorForm.get('downPayment')?.setValidators([Validators.required, Validators.min(this.loan_calculator_settings.downpayment.min), Validators.max(this.loan_calculator_settings.downpayment.max)]);
         this.loanCalculatorForm.get('intRate')?.setValidators([Validators.required, Validators.min(this.loan_calculator_settings.interest.min), Validators.max(this.loan_calculator_settings.interest.max)]);
         this.loanCalculatorForm.get('loanTerm')?.setValidators([Validators.required, Validators.min(1), Validators.max(this.loan_calculator_settings.term)]);
 
-        console.log(form_data);
-
+        //update validations instances
         this.loanCalculatorForm.get('downPayment')?.updateValueAndValidity();
         this.loanCalculatorForm.get('intRate')?.updateValueAndValidity();
         this.loanCalculatorForm.get('loanTerm')?.updateValueAndValidity();
 
+        //clear form
         this.loanCalculatorForm.reset();
+
+        //set form values
         this.loanCalculatorForm.patchValue(form_data);
 
       }
@@ -299,6 +301,15 @@ export class ListingDetailsComponent implements OnInit, AfterViewInit {
         this.validateAllFormFields(control);
       }
     });
+  }
+  hasValidationError(error: any, scope: string) {
+    return error[scope] ? true : false;
+  }
+  getValidationError(error: any, scope: string) {
+
+    console.log(error[scope][scope]);
+
+    return error[scope][scope];
   }
 
 

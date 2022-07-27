@@ -108,21 +108,18 @@
                       <div
                         *ngIf="loanCalculatorForm.get('downPayment')?.invalid && (loanCalculatorForm.get('downPayment')?.dirty || loanCalculatorForm.get('downPayment')?.touched)"
                         class="validation-error">
-                        {{loanCalculatorForm.get('downPayment')?.errors | json }}
+                        <span
+                          *ngIf="hasValidationError(loanCalculatorForm.get('downPayment')?.errors,'required' )">Please
+                          provide downpayment amount </span>
+                        <span *ngIf="hasValidationError(loanCalculatorForm.get('downPayment')?.errors,'max' )">Please
+                          provide downpayment amount that is less than {{
+                          getValidationError(loanCalculatorForm.get('downPayment')?.errors,'max') |
+                          number:'0.0-2' }}</span>
+                        <span *ngIf="hasValidationError(loanCalculatorForm.get('downPayment')?.errors,'min' )">Please
+                          provide downpayment amount that is more than {{
+                          getValidationError(loanCalculatorForm.get('downPayment')?.errors,'min') |
+                          number:'0.0-2' }}</span>
                       </div>
-
-
-                      <!--<div
-                        *ngIf="loanCalculatorForm.get('downPayment')?.invalid && (loanCalculatorForm?.get('downPayment')?.errors['required']) && (loanCalculatorForm.get('downPayment')?.dirty || loanCalculatorForm.get('downPayment')?.touched)"
-                        class="validation-error">
-                        Please provide downpayment amount.
-                      </div>
-
-                      <div
-                        *ngIf="loanCalculatorForm.get('downPayment')?.invalid && (loanCalculatorForm.controls['downPayment']?.errors?.min || loanCalculatorForm.controls['downPayment']?.errors?.max)"
-                        class="validation-error">
-                        Please enter a username that is between 6 to 30 characters long
-                      </div>-->
 
 
                     </div>
@@ -138,7 +135,18 @@
                       <div
                         *ngIf="loanCalculatorForm.get('tradeValue')?.invalid && (loanCalculatorForm.get('tradeValue')?.dirty || loanCalculatorForm.get('tradeValue')?.touched)"
                         class="validation-error">
-                        {{loanCalculatorForm.get('tradeValue')?.errors | json }}
+
+                        <span
+                          *ngIf="hasValidationError(loanCalculatorForm.get('tradeValue')?.errors,'required' )">Please
+                          provide trade in amount </span>
+                        <span *ngIf="hasValidationError(loanCalculatorForm.get('tradeValue')?.errors,'max' )">Please
+                          provide trade in amount that is less than {{
+                          getValidationError(loanCalculatorForm.get('tradeValue')?.errors,'max') |
+                          number:'0.0-2' }}</span>
+                        <span *ngIf="hasValidationError(loanCalculatorForm.get('tradeValue')?.errors,'min' )">Please
+                          provide trade in amount that is more than {{
+                          getValidationError(loanCalculatorForm.get('tradeValue')?.errors,'min') |
+                          number:'0.0-2' }}</span>
                       </div>
                     </div>
                   </div>
@@ -155,7 +163,18 @@
                       <div
                         *ngIf="loanCalculatorForm.get('intRate')?.invalid && (loanCalculatorForm.get('intRate')?.dirty || loanCalculatorForm.get('intRate')?.touched)"
                         class="validation-error">
-                        {{loanCalculatorForm.get('intRate')?.errors | json }}
+
+                        <span *ngIf="hasValidationError(loanCalculatorForm.get('intRate')?.errors,'required' )">Please
+                          provide interest rate </span>
+                        <span *ngIf="hasValidationError(loanCalculatorForm.get('intRate')?.errors,'max' )">Please
+                          provide interest rate that is less than {{
+                          getValidationError(loanCalculatorForm.get('intRate')?.errors,'max') |
+                          number:'0.0-2' }}</span>
+                        <span *ngIf="hasValidationError(loanCalculatorForm.get('intRate')?.errors,'min' )">Please
+                          provide interest rate that is more than {{
+                          getValidationError(loanCalculatorForm.get('intRate')?.errors,'min') |
+                          number:'0.0-2' }}</span>
+
                       </div>
                     </div>
                   </div>
@@ -171,7 +190,16 @@
                       <div
                         *ngIf="loanCalculatorForm.get('loanTerm')?.invalid && (loanCalculatorForm.get('loanTerm')?.dirty || loanCalculatorForm.get('loanTerm')?.touched)"
                         class="validation-error">
-                        {{loanCalculatorForm.get('loanTerm')?.errors | json }}
+                        <span *ngIf="hasValidationError(loanCalculatorForm.get('loanTerm')?.errors,'required' )">Please
+                          provide loan term </span>
+                        <span *ngIf="hasValidationError(loanCalculatorForm.get('loanTerm')?.errors,'max' )">Please
+                          provide loan term that is less than {{
+                          getValidationError(loanCalculatorForm.get('loanTerm')?.errors,'max') |
+                          number:'0.0-2' }}</span>
+                        <span *ngIf="hasValidationError(loanCalculatorForm.get('loanTerm')?.errors,'min' )">Please
+                          provide loan term that is more than {{
+                          getValidationError(loanCalculatorForm.get('loanTerm')?.errors,'min') |
+                          number:'0.0-2' }}</span>
                       </div>
                     </div>
                   </div>
