@@ -1,81 +1,107 @@
 # Autochek App
+
 This is an Angular Web App that consumes specific myautochek API to consume cars & models as well as car media.
 
-Design Template: 
+Design Template:
+
 - <https://w3layouts.com/template/electro-store-an-ecommerce-theme-bootstrap-template/>
 
 APIs:
--  Get all popular makes: <https://api.staging.myautochek.com/v1/inventory/make?popular=true>
--  List all cars (paginated): <https://api.staging.myautochek.com/v1/inventory/car/search>
--  List car detail page: <https://api.staging.myautochek.com/v1/inventory/car/{carId>}.
--  Get Car media: <https://api.staging.myautochek.com/v1/inventory/car_media?carId={carId>}
+
+- Get all popular makes: <https://api.staging.myautochek.com/v1/inventory/make?popular=true>
+- List all cars (paginated): <https://api.staging.myautochek.com/v1/inventory/car/search>
+- List car detail page: <https://api.staging.myautochek.com/v1/inventory/car/{carId>}.
+- Get Car media: <https://api.staging.myautochek.com/v1/inventory/car_media?carId={carId>}
 
 ## Dev Dependencies
+
 1. jQuery Types (@types/jquery) -  I also had to add the jquery type to tsconfig file to use jQuery definitions in Angular components
 2. NgX Pagination (ngx-pagination) - for listing pagination
 3. Angular 13 (only tested on local environment)
 
 ## How to run
+
 1. Git clone the repo
+
 ```bash
-git clone git@github.com:msaisi/cars-test.git
+git clone git@github.com:msaisi/autochek-ng-test.git
 ```
 
 2. Go into the root directory and install dependencies
+
 ```bash
-cd cars-test && npm install
+cd autochek-ng-test && npm install
 ```
 
 3. Start the App
+
 > npm command
+
 ```**bash**
 npm start
 ```
+
 > ng command
+
 ```bash
 ng serve
 ```
 
 ## Running Tests
+
 > Tests are implemented with Jasmine which comes inbuilt with Angular Framework.
 **Note:** Close the app  first, if you had been running it before to avoid getting the error _"Port 9876 is already in use"_
 
 > npm command
+
 ```bash
 npm test
 ```
+
 > ng command
+
 ```bash
 ng test
 ```
 
 ## Finished WebApp
+
 _Note:_ Angular App will run on default port _"4200"_ therefore URL will be _"http://localhost:4200"_ ( {app_url} will be used in place of URL value )
 
 Note: The above is only true if agular app is not served under aspecific port  i.e. _"ng serve --port=5200"_ which will force the URL port to change accordingly
 
 ### 1. Get all popular makes
-Webpage: 
+
+Webpage:
+
 ```
 URL {app_url}
 ```
+
 - Popular Makes Section
 
 ### 2. List all cars + pagination
+
 Webpage:
+
 ```
 URL {app_url}/listing
 ```
+
 - Listing section
 - Pagination section
 
 ### 3. List car detail page + media
+
 Webpage:
+
 ```
 URL {app_url}/listing/{carId} 
 ```
+
 - Listing details section
 - Media section
+
 ```
 
 
