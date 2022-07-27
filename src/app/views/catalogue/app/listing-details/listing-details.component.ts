@@ -20,6 +20,17 @@ export class ListingDetailsComponent implements OnInit, AfterViewInit {
     downpayment: 0,
     interest_rate: 0,
     //percentage: 0,
+
+    user_check: {
+      vehicle_price: 0,
+      downpayment: 0,
+      vehicle_tradein_price: 0,
+      interest_rate: 0,
+      term: 0,
+      results: {
+        instalment: 0
+      }
+    }
   };
 
   loan_calculator_settings: {
@@ -140,11 +151,16 @@ export class ListingDetailsComponent implements OnInit, AfterViewInit {
           },
           loan_amount: 0,
 
-        }
+        };
+
+        this.loan_calculator_vals.user_check.vehicle_price = this._vehicle.loanValue;
+        this.loan_calculator_vals.user_check.interest_rate = this._vehicle.financingSettings.loanCalculator.defaultValues.interestRate;
+        this.loan_calculator_vals.user_check.term = this._vehicle.financingSettings.loanCalculator.defaultValues.tenure;
 
       }
 
       console.log(this.loan_calculator_settings);
+      console.log(this.loan_calculator_vals);
 
     });
 
@@ -279,6 +295,49 @@ export class ListingDetailsComponent implements OnInit, AfterViewInit {
 
   vehicleInquire() {
     alert("to complete code section...");
+  }
+
+  calculatePayments() {
+    //console.log("calc payment");
+
+    let vehiclePrice = this.loan_calculator_vals.user_check.vehicle_price,
+      loanTerm = this.loan_calculator_vals.user_check.term,
+      intRate = this.loan_calculator_vals.user_check.interest_rate,
+      downPayment = this.loan_calculator_vals.user_check.downpayment,
+      tradeValue = this.loan_calculator_vals.user_check.vehicle_tradein_price,
+      amount = parseInt(vehiclePrice),
+      months = parseInt(loanTerm),
+      down = parseInt(downPayment),
+      trade = parseInt(tradeValue),
+      totalDown = down + trade,
+      annInterest = parseFloat(intRate),
+      monInt = annInterest / 1200;
+
+    if (!amount) {
+      alert('Please add a loan amount');
+      return;
+    }
+
+    if (!months) {
+      months = 60;
+      this.loan_calculator_vals.user_check.vehicle_price = 60;
+    }
+
+    if (!downPayment) {
+      down = 0;
+      this.loan_calculator_vals.user_check.downpayment = 0;
+    }
+
+    /*if (!trade) {
+      this.loan_calculator_vals.user_check.vehicle_tradein_price = 0;
+    }*/
+
+    if (!annInterest) {
+      annInterest = 3.25;
+      this.loan_calculator_vals.user_check.interest_rate = 3.25;
+    }
+
+    this.loan_calculator_vals.user_check.results.instalment = ((monInt + (monInt / (Math.pow((1 + monInt), months) - 1))) * (amount - (totalDown || 0))).toFixed(2);
   }
 
 

@@ -129,6 +129,81 @@
 
             </table>
 
+
+            <div class="row paymentCalc">
+
+              <div class="col-md-12">
+
+                <form id="loanCalc" action="" method="get" class="row">
+                  <div class="col-md-12">
+                    <h2>Calculate Your Auto Loan Payment</h2>
+                    <div class="form-group">
+                      <label for="vehiclePrice">Vehicle Price</label>
+                      <input type="number"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                        class="form-control" id="vehiclePrice" name="vehiclePrice" placeholder="Vehicle Price"
+                        [(ngModel)]="loan_calculator_vals.user_check.vehicle_price">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="downPayment">Down Payment</label>
+                      <input type="number"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                        class="form-control" id="downPayment" name="downPayment" placeholder="Down Payment" value="0"
+                        [(ngModel)]="loan_calculator_vals.user_check.downpayment">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="tradeValue">Trade In Value</label>
+                      <input type="number"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                        class="form-control" id="tradeValue" name="tradeValue" placeholder="Trade In Value" value="0"
+                        [(ngModel)]="loan_calculator_vals.user_check.vehicle_tradein_price">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="intRate">Interest Rate</label>
+                      <input type="number"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                        class="form-control" id="intRate" name="intRate" placeholder="Interest Rate" value="3.25"
+                        [(ngModel)]="loan_calculator_vals.user_check.interest_rate">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="loanTerm">Loan Term</label>
+                      <input type="number"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                        class="form-control" id="loanTerm" name="loanTerm" placeholder="Loan Term (ex: 36 Months)"
+                        [(ngModel)]="loan_calculator_vals.user_check.term">
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="col-md-12">
+                    <a class="btn btn-sm btn-warning" (click)="calculatePayments()">Calculate</a>
+                  </div>
+                </form>
+
+              </div>
+              <div class="col-md-12" *ngIf="loan_calculator_vals.user_check.results.instalment">
+                <div class="results-wrapper">
+
+                  <h1 class="text-center">Estimated Monthly Payment is:<br /></h1>
+                  <h3 class="text-center"> {{ loan_calculator_vals.user_check.results.instalment | number:'0.2-2'
+                    }}/Month</h3>
+
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
           </div>
         </div>
 

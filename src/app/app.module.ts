@@ -8,6 +8,7 @@ import { VehiclesService } from './services/vehicles.service';
 import { MakesService } from './services/makes.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { LayoutModule } from './layout/layout.module';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent
@@ -16,6 +17,7 @@ import { LayoutModule } from './layout/layout.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     LayoutModule,
     NgxPaginationModule
   ],
