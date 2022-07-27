@@ -38,40 +38,34 @@ export class ListingDetailsComponent implements OnInit, AfterViewInit {
       min: number,
       max: number,
       default: number,
-      set: number,
-      step: number,
+      //set: number,
+      //step: number,
     },
     downpayment: {
       min: number,
       max: number,
       default: number,
-      set: number,
-      step: number,
+      //set: number,
+      //step: number,
     },
-    term: {
-      default: number,
-      set: number
-    },
+    term: 0,
     loan_amount: number
   } = {
       interest: {
         min: 0,
         max: 0.5,
         default: 0.2,
-        set: 0.2,
-        step: 0.1,
+        //set: 0.2,
+        //step: 0.1,
       },
       downpayment: {
         min: 0,
         max: 0.5,
         default: 0.2,
-        set: 0.2,
-        step: 0.1,
+        //set: 0.2,
+        //step: 0.1,
       },
-      term: {
-        default: 0,
-        set: 0
-      },
+      term: 0,
       loan_amount: 0
     };
 
@@ -132,28 +126,22 @@ export class ListingDetailsComponent implements OnInit, AfterViewInit {
 
         this.loan_calculator_settings = {
           downpayment: {
-            min: this._vehicle.financingSettings.loanCalculator.ranges.minDownPayment,
-            max: this._vehicle.financingSettings.loanCalculator.ranges.maxDownPayment,
-            default: this._vehicle.financingSettings.loanCalculator.defaultValues.downPayment,
-            step: 0.1,
-            set: this._vehicle.financingSettings.loanCalculator.defaultValues.downPayment
+            min: (this._vehicle.loanValue * this._vehicle.financingSettings.loanCalculator.ranges.minDownPayment),
+            max: (this._vehicle.loanValue * this._vehicle.financingSettings.loanCalculator.ranges.maxDownPayment),
+            default: (this._vehicle.loanValue * this._vehicle.financingSettings.loanCalculator.defaultValues.downPayment)
           },
           interest: {
             min: this._vehicle.financingSettings.loanCalculator.ranges.minInterestRate,
             max: this._vehicle.financingSettings.loanCalculator.ranges.maxInterestRate,
-            default: this._vehicle.financingSettings.loanCalculator.defaultValues.interestRate,
-            step: 0.1,
-            set: this._vehicle.financingSettings.loanCalculator.defaultValues.interestRate
+            default: this._vehicle.financingSettings.loanCalculator.defaultValues.interestRate
           },
-          term: {
-            default: this._vehicle.financingSettings.loanCalculator.defaultValues.tenure,
-            set: 0
-          },
-          loan_amount: 0,
+          term: this._vehicle.financingSettings.loanCalculator.defaultValues.tenure,
+          loan_amount: this._vehicle.loanValue,
 
         };
 
         this.loan_calculator_vals.user_check.vehicle_price = this._vehicle.loanValue;
+        this.loan_calculator_vals.user_check.downpayment = this.loan_calculator_settings.downpayment.default;
         this.loan_calculator_vals.user_check.interest_rate = this._vehicle.financingSettings.loanCalculator.defaultValues.interestRate;
         this.loan_calculator_vals.user_check.term = this._vehicle.financingSettings.loanCalculator.defaultValues.tenure;
 
@@ -166,7 +154,7 @@ export class ListingDetailsComponent implements OnInit, AfterViewInit {
 
   }
 
-  rangeChange(event: any, scope: string) {
+  /*rangeChange(event: any, scope: string) {
 
     console.log(scope, event.target.value);
 
@@ -183,7 +171,7 @@ export class ListingDetailsComponent implements OnInit, AfterViewInit {
         break;
     }
 
-  }
+  }*/
 
   resourceURL(value: any) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(value);

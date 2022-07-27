@@ -70,65 +70,7 @@
               </li>
             </ul>
 
-            <h4 class="mt-3 mb-3">Loan Calculator</h4>
-
-            <table>
-              <thead>
-                <tr>
-                  <td>Range</td>
-                  <td>Percentage</td>
-                  <td>Value</td>
-                </tr>
-              </thead>
-
-              <!--<tbody>
-                <tr>
-                  <td>
-                    <input type="range" class="form-range mb-3" [min]="loan_calculator_settings.downpayment.min"
-                      [max]="loan_calculator_settings.downpayment.max"
-                      [step]="loan_calculator_settings.downpayment.step"
-                      [value]="loan_calculator_settings.downpayment.set" (change)="rangeChange($event, 'downpayment')">
-                  </td>
-                  <td>{{ loan_calculator_settings.downpayment.set }}</td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <input type="range" class="form-range mb-3" [min]="loan_calculator_settings.interest.min"
-                      [max]="loan_calculator_settings.interest.max" [step]="loan_calculator_settings.interest.step"
-                      [value]="loan_calculator_settings.interest.set" (change)="rangeChange($event, 'interest_rate')">
-                  </td>
-                  <td>{{
-                    loan_calculator_settings.interest.set}}</td>
-                </tr>
-              </tbody>-->
-
-              <tbody>
-                <tr>
-                  <td>
-                    <!--[step]="loan_calculator_settings.downpayment.step"-->
-                    <input type="number" class="mb-3" [min]="loan_calculator_settings.downpayment.min"
-                      [max]="loan_calculator_settings.downpayment.max"
-                      [value]="loan_calculator_settings.downpayment.set" (change)="rangeChange($event, 'downpayment')">
-                  </td>
-                  <td>{{ loan_calculator_settings.downpayment.set }}</td>
-                  <td>{{ loan_calculator_settings.downpayment.set }}</td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <!-- [step]="loan_calculator_settings.interest.step"-->
-                    <input type="number" class="mb-3" [min]="loan_calculator_settings.interest.min"
-                      [max]="loan_calculator_settings.interest.max" [value]="loan_calculator_settings.interest.set"
-                      (change)="rangeChange($event, 'interest_rate')">
-                  </td>
-                  <td>{{ loan_calculator_settings.interest.set }}</td>
-                  <td>{{ loan_calculator_settings.interest.set }}</td>
-                </tr>
-              </tbody>
-
-            </table>
-
+            <h4 class="mt-5 mb-3">Calculate Your Auto Loan Payment</h4>
 
             <div class="row paymentCalc">
 
@@ -136,7 +78,6 @@
 
                 <form id="loanCalc" action="" method="get" class="row">
                   <div class="col-md-12">
-                    <h2>Calculate Your Auto Loan Payment</h2>
                     <div class="form-group">
                       <label for="vehiclePrice">Vehicle Price</label>
                       <input type="number"
@@ -151,6 +92,8 @@
                       <input type="number"
                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                         class="form-control" id="downPayment" name="downPayment" placeholder="Down Payment" value="0"
+                        [min]="loan_calculator_settings.downpayment.min"
+                        [max]="loan_calculator_settings.downpayment.max"
                         [(ngModel)]="loan_calculator_vals.user_check.downpayment">
                     </div>
                   </div>
@@ -168,7 +111,8 @@
                       <label for="intRate">Interest Rate</label>
                       <input type="number"
                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                        class="form-control" id="intRate" name="intRate" placeholder="Interest Rate" value="3.25"
+                        class="form-control" id="intRate" name="intRate" placeholder="Interest Rate" value=""
+                        [min]="loan_calculator_settings.interest.min" [max]="loan_calculator_settings.interest.max"
                         [(ngModel)]="loan_calculator_vals.user_check.interest_rate">
                     </div>
                   </div>
@@ -189,9 +133,9 @@
 
               </div>
               <div class="col-md-12" *ngIf="loan_calculator_vals.user_check.results.instalment">
-                <div class="results-wrapper">
+                <div class="mt-3 mb-3">
 
-                  <h1 class="text-center">Estimated Monthly Payment is:<br /></h1>
+                  <h4 class="text-center">Estimated Monthly Payment </h4>
                   <h3 class="text-center"> {{ loan_calculator_vals.user_check.results.instalment | number:'0.2-2'
                     }}/Month</h3>
 
