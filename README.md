@@ -1,6 +1,6 @@
 # Autochek App
 
-This is an Angular Web App that consumes specifi Autochek API to consume cars & models as well as car media.
+This is an Angular Web App that consumes specific Autochek API endpoints to return cars & models as well as car media.
 
 Design Template:
 
