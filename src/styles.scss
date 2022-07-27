@@ -75,6 +75,14 @@
 
 }
 
+.form-group {
+  .validation-error {
+    color: #dc3545 !important;
+    font-size: 14px;
+    /*font-weight: bold;*/
+  }
+}
+
 @media (max-width:767px) {
   .page-navigation-wrapper {
 

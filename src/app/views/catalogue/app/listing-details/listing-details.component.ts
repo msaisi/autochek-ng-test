@@ -5,7 +5,9 @@ import { VehiclesService } from 'src/app/services/vehicles.service';
 import { Vehicle } from 'src/app/services/_models/vehicle';
 import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
 import { Observable, of } from 'rxjs';
-declare var $: any;
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+declare let $: any;
+
 @Component({
   selector: 'app-listing-details',
   templateUrl: './listing-details.component.html',
@@ -16,37 +18,21 @@ export class ListingDetailsComponent implements OnInit, AfterViewInit {
   _vehicleId: any = null;
   _vehicle: any = new Vehicle();
   _carMedia: any[] = [];
-  loan_calculator_vals: any | null = {
-    downpayment: 0,
-    interest_rate: 0,
-    //percentage: 0,
 
-    user_check: {
-      vehicle_price: 0,
-      downpayment: 0,
-      vehicle_tradein_price: 0,
-      interest_rate: 0,
-      term: 0,
-      results: {
-        instalment: 0
-      }
-    }
-  };
+  loan_calculator_results: any | null = {
+    instalment: 0
+  }
 
   loan_calculator_settings: {
     interest: {
       min: number,
       max: number,
-      default: number,
-      //set: number,
-      //step: number,
+      default: number
     },
     downpayment: {
       min: number,
       max: number,
-      default: number,
-      //set: number,
-      //step: number,
+      default: number
     },
     term: 0,
     loan_amount: number
@@ -54,47 +40,36 @@ export class ListingDetailsComponent implements OnInit, AfterViewInit {
       interest: {
         min: 0,
         max: 0.5,
-        default: 0.2,
-        //set: 0.2,
-        //step: 0.1,
+        default: 0.2
       },
       downpayment: {
         min: 0,
         max: 0.5,
-        default: 0.2,
-        //set: 0.2,
-        //step: 0.1,
+        default: 0.2
       },
       term: 0,
       loan_amount: 0
     };
 
-  //loanPercentage
-
-  /*
-    downPayment: 0.20000000298023224
-    interestRate: 0.23999999463558197
-    tenure: 48
-
-
-    maxDownPayment: 0.5
-    maxInterestRate: 0.23999999463558197
-    minDownPayment: 0.20000000298023224
-    minInterestRate: 0.18000000715255737
-    tenure: 48
-
-  */
-
-
   queryParams: QueryParamsModel = new QueryParamsModel();
   _video_holder_img: string = "";
+  loanCalculatorForm: FormGroup;
 
   constructor(
     private vehicleService: VehiclesService,
     private _route: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private fb: FormBuilder
   ) {
     this._video_holder_img = "assets/images/vid-holder.jpg";
+
+    this.loanCalculatorForm = this.fb.group({
+      loanTerm: ['', [Validators.required, Validators.min(0), Validators.max(0)]],
+      intRate: ['', [Validators.required, Validators.min(0), Validators.max(0)]],
+      tradeValue: ['',],
+      downPayment: ['', [Validators.required, Validators.min(0), Validators.max(0)]],
+      vehiclePrice: ['', Validators.required]
+    });
   }
 
   ngOnInit(): void {
@@ -140,38 +115,38 @@ export class ListingDetailsComponent implements OnInit, AfterViewInit {
 
         };
 
-        this.loan_calculator_vals.user_check.vehicle_price = this._vehicle.loanValue;
-        this.loan_calculator_vals.user_check.downpayment = this.loan_calculator_settings.downpayment.default;
-        this.loan_calculator_vals.user_check.interest_rate = this._vehicle.financingSettings.loanCalculator.defaultValues.interestRate;
-        this.loan_calculator_vals.user_check.term = this._vehicle.financingSettings.loanCalculator.defaultValues.tenure;
+        let form_data = {
+          loanTerm: this._vehicle.financingSettings.loanCalculator.defaultValues.tenure,
+          intRate: this._vehicle.financingSettings.loanCalculator.defaultValues.interestRate,
+          tradeValue: 0,
+          downPayment: this.loan_calculator_settings.downpayment.default,
+          vehiclePrice: this._vehicle.loanValue
+        }
+
+
+        this.loanCalculatorForm.get('downPayment')?.clearValidators();
+        this.loanCalculatorForm.get('intRate')?.clearValidators();
+        this.loanCalculatorForm.get('loanTerm')?.clearValidators();
+
+
+        this.loanCalculatorForm.get('downPayment')?.setValidators([Validators.required, Validators.min(this.loan_calculator_settings.downpayment.min), Validators.max(this.loan_calculator_settings.downpayment.max)]);
+        this.loanCalculatorForm.get('intRate')?.setValidators([Validators.required, Validators.min(this.loan_calculator_settings.interest.min), Validators.max(this.loan_calculator_settings.interest.max)]);
+        this.loanCalculatorForm.get('loanTerm')?.setValidators([Validators.required, Validators.min(1), Validators.max(this.loan_calculator_settings.term)]);
+
+        console.log(form_data);
+
+        this.loanCalculatorForm.get('downPayment')?.updateValueAndValidity();
+        this.loanCalculatorForm.get('intRate')?.updateValueAndValidity();
+        this.loanCalculatorForm.get('loanTerm')?.updateValueAndValidity();
+
+        this.loanCalculatorForm.reset();
+        this.loanCalculatorForm.patchValue(form_data);
 
       }
-
-      console.log(this.loan_calculator_settings);
-      console.log(this.loan_calculator_vals);
 
     });
 
   }
-
-  /*rangeChange(event: any, scope: string) {
-
-    console.log(scope, event.target.value);
-
-    switch (scope) {
-      case "downpayment":
-
-        this.loan_calculator_settings.downpayment.set = event.target.value;
-
-        break;
-      case "interest_rate":
-
-        this.loan_calculator_settings.interest.set = event.target.value;
-
-        break;
-    }
-
-  }*/
 
   resourceURL(value: any) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(value);
@@ -286,46 +261,44 @@ export class ListingDetailsComponent implements OnInit, AfterViewInit {
   }
 
   calculatePayments() {
-    //console.log("calc payment");
+    if (this.loanCalculatorForm.valid) {
+      let form_values = this.loanCalculatorForm.value;
 
-    let vehiclePrice = this.loan_calculator_vals.user_check.vehicle_price,
-      loanTerm = this.loan_calculator_vals.user_check.term,
-      intRate = this.loan_calculator_vals.user_check.interest_rate,
-      downPayment = this.loan_calculator_vals.user_check.downpayment,
-      tradeValue = this.loan_calculator_vals.user_check.vehicle_tradein_price,
-      amount = parseInt(vehiclePrice),
-      months = parseInt(loanTerm),
-      down = parseInt(downPayment),
-      trade = parseInt(tradeValue),
-      totalDown = down + trade,
-      annInterest = parseFloat(intRate),
-      monInt = annInterest / 1200;
+      let vehiclePrice = form_values.vehiclePrice,
+        loanTerm = form_values.loanTerm,
+        intRate = form_values.intRate,
+        downPayment = form_values.downPayment,
+        tradeValue = form_values.tradeValue,
+        amount = parseInt(vehiclePrice),
+        months = parseInt(loanTerm),
+        down = parseInt(downPayment),
+        trade = parseInt(tradeValue),
+        totalDown = down + trade,
+        annInterest = parseFloat(intRate),
+        monInt = annInterest / 1200;
 
-    if (!amount) {
-      alert('Please add a loan amount');
-      return;
+      if (!amount) {
+        alert('Please add a loan amount');
+        return;
+      }
+
+      this.loan_calculator_results.instalment = ((monInt + (monInt / (Math.pow((1 + monInt), months) - 1))) * (amount - (totalDown || 0))).toFixed(2);
+    } else {
+      // validate all form fields
+      this.validateAllFormFields(this.loanCalculatorForm);
     }
+  }
 
-    if (!months) {
-      months = 60;
-      this.loan_calculator_vals.user_check.vehicle_price = 60;
-    }
-
-    if (!downPayment) {
-      down = 0;
-      this.loan_calculator_vals.user_check.downpayment = 0;
-    }
-
-    /*if (!trade) {
-      this.loan_calculator_vals.user_check.vehicle_tradein_price = 0;
-    }*/
-
-    if (!annInterest) {
-      annInterest = 3.25;
-      this.loan_calculator_vals.user_check.interest_rate = 3.25;
-    }
-
-    this.loan_calculator_vals.user_check.results.instalment = ((monInt + (monInt / (Math.pow((1 + monInt), months) - 1))) * (amount - (totalDown || 0))).toFixed(2);
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.updateValueAndValidity();
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
   }
 
 
