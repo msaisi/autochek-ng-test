@@ -122,7 +122,7 @@ Vehicle Listing Page: Color codes on availability indicate how 'hot' the deal is
 URL {app_url}/
 
 2. Listing Page 
-URL {app_url}/
+URL {app_url}/listing
 
 3. Listing Page Details 
 URL {app_url}/{carId}
