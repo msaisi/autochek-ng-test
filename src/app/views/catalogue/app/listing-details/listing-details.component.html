@@ -228,7 +228,12 @@
             <li class="mb-3">
               <b>Selling Condition:</b> {{ (_vehicle.sellingCondition | titlecase) || 'n/a' }}
             </li>
-
+            <li class="mb-3">
+              <b>Inspector Name:</b> {{ (_vehicle.inspectorDetails?.inspectorFullName) || 'n/a' }}
+            </li>
+            <li class="mb-3">
+              <b>Inspector Workshop:</b> {{ (_vehicle.inspectorDetails?.workshopName) || 'n/a' }}
+            </li>
           </ul>
         </div>
 
